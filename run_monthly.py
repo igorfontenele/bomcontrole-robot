@@ -11,9 +11,9 @@ Orquestrador do robô mensal. Executa em sequência:
   5. Envia email via Resend com o link
 
 Uso:
-    python run_monthly.py                 # mês anterior (ex: rodando em 27/abr → mar)
-    python run_monthly.py --mes 2026-03   # mês específico
-    MES_REFERENCIA=anterior python run_monthly.py
+    python run_monthly.py                 # mês posterior (ex: rodando em 27/abr → mai)
+    python run_monthly.py --mes 2026-05   # mês específico
+    MES_REFERENCIA=posterior python run_monthly.py
 """
 
 import argparse
@@ -39,6 +39,14 @@ logging.basicConfig(
 log = logging.getLogger(__name__)
 
 
+def _mes_posterior(hoje=None):
+    hoje = hoje or date.today()
+    ano, mes = hoje.year, hoje.month + 1
+    if mes == 13:
+        ano, mes = ano + 1, 1
+    return ano, mes
+
+
 def _mes_anterior(hoje=None):
     hoje = hoje or date.today()
     ano, mes = hoje.year, hoje.month - 1
@@ -54,12 +62,14 @@ def _parse_mes(s):
             raise ValueError
         return ano, mes
     except Exception:
-        raise SystemExit(f"Formato inválido: {s!r}. Use AAAA-MM (ex: 2026-03).")
+        raise SystemExit(f"Formato inválido: {s!r}. Use AAAA-MM (ex: 2026-05).")
 
 
 def _resolver_mes(cli_mes=None):
-    fonte = cli_mes or os.getenv("MES_REFERENCIA", "anterior")
-    if fonte == "anterior":
+    fonte = cli_mes or os.getenv("MES_REFERENCIA", "posterior")
+    if fonte == "posterior":
+        ano, mes = _mes_posterior()
+    elif fonte == "anterior":
         ano, mes = _mes_anterior()
     else:
         ano, mes = _parse_mes(fonte)
@@ -114,7 +124,7 @@ def _email(label, url, mb, stats):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--mes", help="AAAA-MM; default lê MES_REFERENCIA do env (ou 'anterior').")
+    parser.add_argument("--mes", help="AAAA-MM; default lê MES_REFERENCIA do env (ou 'posterior').")
     parser.add_argument("--pular-login", action="store_true",
                         help="Reutiliza .api_headers.json existente (debug).")
     args = parser.parse_args()
