@@ -1,0 +1,26 @@
+.git
+.venv
+venv
+__pycache__
+*.pyc
+.idea
+.vscode
+.DS_Store
+
+# Secrets e caches (não devem ir pra imagem)
+.env
+.env.local
+.api_headers.json
+.cache_*.json
+
+# Outputs (não precisam estar na imagem — são gerados em runtime)
+pdfs_cobranca/
+*.zip
+documentos/
+relatorio_clientes.xlsx
+relatorio_faturas.csv
+debug_*/
+debug_*.json
+
+# CI
+.github/

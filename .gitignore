@@ -1,0 +1,40 @@
+# Secrets
+.env
+.env.local
+.api_headers.json
+
+# Caches
+.cache_*.json
+.cache_clientes.json
+
+# Outputs
+pdfs_cobranca/
+*.zip
+documentos/
+relatorio_clientes.xlsx
+relatorio_faturas.csv
+
+# Debug
+debug_*/
+debug_*.json
+/tmp/bc_*.png
+
+# Postman collection — contém ApiKeys hardcoded (sensível)
+APIs Integração BomControle.postman_collection.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+.pytest_cache/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
