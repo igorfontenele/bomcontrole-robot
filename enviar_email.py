@@ -61,9 +61,12 @@ def enviar_link_cobrancas(mes_label, download_url, tamanho_mb, stats=None):
     </div>
     """.strip()
 
+    cc = os.getenv("RESEND_CC_EMAIL", "igor@tucupy.com")
+
     payload = {
         "from":    sender,
         "to":      [to] if isinstance(to, str) else list(to),
+        "cc":      [cc] if cc else [],
         "subject": f"Cobranças {mes_label} — PDFs disponíveis",
         "html":    html,
     }
