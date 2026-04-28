@@ -72,7 +72,7 @@ DATA_TERMINO = "2025-12-31 23:59:59"
 # Tipo de data para filtrar as movimentações. Opções:
 #   DataPadrao | DataPrevista | DataPagamento | DataCompetencia |
 #   DataConciliacao | Criacao | UltimaAlteracao
-TIPO_DATA = "DataCompetencia"
+TIPO_DATA = "DataVencimento"
 
 FILTRO_STATUS  = None          # "Atrasado" | "Agendado" | "Quitado" | None
 FILTRO_DESPESA = False         # False = só receitas (recomendado — exclui despesas e lançamentos internos)
